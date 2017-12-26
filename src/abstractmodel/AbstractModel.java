@@ -12,4 +12,5 @@ public interface AbstractModel {
     Post[] getFeed(int userID);
     User login(String login, String password);
     User[] getSubscribers(int userID);
+    User[] find(String login);
 }

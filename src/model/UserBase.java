@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
+import java.util.ArrayList;
 
 public class UserBase {
     private String dbPath;
@@ -58,5 +59,20 @@ public class UserBase {
             }
         }
         return null;
+    }
+
+    public User[] findUser(String login) throws IOException {
+        ArrayList<User> matches = new ArrayList<>();
+        Path path = FileSystems.getDefault().getPath(dbPath, USERS_FILENAME);
+        try (BufferedReader reader = Files.newBufferedReader(path)) {
+            String line;
+            while((line = reader.readLine()) != null) {
+                String[] fields = line.split(" ");
+                if (fields[0].equals(login)) {
+                    matches.add(new User(fields[0], Integer.parseInt(fields[2]), Integer.parseInt(fields[3])));
+                }
+            }
+        }
+        return (User [])matches.toArray();
     }
 }
