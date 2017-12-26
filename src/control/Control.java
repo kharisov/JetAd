@@ -22,6 +22,7 @@ public class Control extends AbstractControl{
     public void endWork(){
 
     }
+
     public void login(String login, String password) {
         User me;
         me = model.login(login, password);
@@ -32,6 +33,7 @@ public class Control extends AbstractControl{
             view.update(me);
         }
     }
+
     public void register(String login, String password, int type){
         try {
             User me;
@@ -47,12 +49,14 @@ public class Control extends AbstractControl{
             view.updateError();
         }
     }
+
     public void showFeed(){
         Post[] feed = model.getFeed(currentUser.getId());
         view.update(feed);
     }
+
     public void showProfile(int userID){
-        try{
+        try {
             User us = model.getUser(userID);
             view.update(us);
         }
@@ -60,11 +64,12 @@ public class Control extends AbstractControl{
             view.updateError();
         }
     }
+
     public void showMyProfile(){
-        showProfile(currentUser.getId());
+        view.update(currentUser);
     }
     public void openPost(int postID){}
-    public void search(String subject){}
+    public void search(String subject){ }
     public void publicPost(int postID){}
     public void subscribe(int userID){}
     public void showSubscribers(){}
