@@ -20,4 +20,8 @@ public class User {
     public int getId() {
         return id;
     }
+
+    public int getType() {
+        return type;
+    }
 }
