@@ -12,7 +12,7 @@ public abstract class AbstractControl {
     abstract public void useView(AbstractView view);
     abstract public void useModel(AbstractModel model);
     abstract public void endWork();
-    abstract public void register(String login, String password);
+    abstract public void register(String login, String password, int type);
     abstract public void showFeed();
     abstract public void showProfile(int userID);
     abstract public void showMyProfile();
