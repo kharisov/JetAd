@@ -26,8 +26,16 @@ public class DataBase implements AbstractModel {
     }
 
     @Override
-    public void addUser(String login, String password, int type) throws IOException {
+    public User addUser(String login, String password, int type) throws IOException {
         userBase.addUser(login, password, type);
+        User user;
+        try {
+            user = userBase.checkExistance(login, password);
+            return user;
+        }
+        catch (IOException err){
+            return null;
+        }
     }
 
     @Override
@@ -53,7 +61,7 @@ public class DataBase implements AbstractModel {
             return user;
         }
         catch (IOException err){
-
+            return null;
         }
     }
 

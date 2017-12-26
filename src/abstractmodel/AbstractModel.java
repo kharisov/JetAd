@@ -6,7 +6,7 @@ import adobjects.User;
 import java.io.IOException;
 
 public interface AbstractModel {
-    void addUser(String login, String password, int type) throws IOException; //TODO user not needed
+    User addUser(String login, String password, int type) throws IOException; //TODO user not needed
     User getUser(int userID) throws IOException;
     void addPost(Post post) throws IOException;
     Post[] getFeed(int userID);
