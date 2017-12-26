@@ -10,6 +10,6 @@ public interface AbstractModel {
     User getUser(int userID) throws IOException;
     void addPost(Post post) throws IOException;
     Post[] getFeed(int userID);
-    void login(String login, String password);
+    User login(String login, String password);
     User[] getSubscribers(int userID);
 }
