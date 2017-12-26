@@ -59,4 +59,18 @@ public class UserBase {
         }
         return null;
     }
+
+    public User findUser(String login) throws IOException {
+        Path path = FileSystems.getDefault().getPath(dbPath, USERS_FILENAME);
+        try (BufferedReader reader = Files.newBufferedReader(path)) {
+            String line;
+            while((line = reader.readLine()) != null) {
+                String[] fields = line.split(" ");
+                if (fields[0].equals(login)) {
+                    return new User(fields[0], Integer.parseInt(fields[2]), Integer.parseInt(fields[3]));
+                }
+            }
+        }
+        return null;
+    }
 }

@@ -64,7 +64,16 @@ public class Control extends AbstractControl{
         showProfile(currentUser.getId());
     }
     public void openPost(int postID){}
-    public void search(String subject){}
+    public void search(String subject){
+        User found;
+        found = model.find(subject);
+        if (found == null){
+            view.updateError();
+        }
+        else{
+            view.update(found);
+        }
+    }
     public void publicPost(int postID){}
     public void subscribe(int userID){}
     public void showSubscribers(){}

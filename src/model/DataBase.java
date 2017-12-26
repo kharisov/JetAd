@@ -69,4 +69,14 @@ public class DataBase implements AbstractModel {
     public User[] getSubscribers(int userID) {
         return new User[0];
     }
+
+    @Override
+    public User find(String login){
+        try {
+            return userBase.findUser(login);
+        }
+        catch (IOException err){
+            return null;
+        }
+    }
 }
