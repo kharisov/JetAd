@@ -27,7 +27,7 @@ public class Control extends AbstractControl{
             model.addUser(login, password, type);
         }
         catch (IOException err){
-
+            view.updateError();
         }
     }
     public void showFeed(){}

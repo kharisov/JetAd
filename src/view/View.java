@@ -31,4 +31,9 @@ public class View extends AbstractView {
     public void update(User[] data) {
 
     }
+
+    @Override
+    public void updateError() {
+
+    }
 }
