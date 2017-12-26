@@ -12,7 +12,7 @@ public class View extends AbstractView {
     private JFrame frame = new JFrame();
 
     public void startSession() {
-        //JTextField text = new JTextField("ASD");
+        JTextField text = new JTextField("ASD");
         //frame.add(text);
         //text.setVisible(true);
     }
