@@ -23,7 +23,9 @@ public class Control extends AbstractControl{
 
     }
     public void login(String login, String password){
-        model.login(login, password);
+        User me;
+        me = model.login(login, password);
+        view.update(me);
     }
     public void register(String login, String password, int type){
         try {
