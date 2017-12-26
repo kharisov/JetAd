@@ -26,18 +26,18 @@ public class DataBase implements AbstractModel {
     }
 
     @Override
-    public void addUser(String login, String password, int type) {
-        //userBase.addUser(login, password, type);
+    public void addUser(String login, String password, int type) throws IOException {
+        userBase.addUser(login, password, type);
     }
 
     @Override
-    public User getUser(int userID) {
-        return null;
+    public User getUser(int userID) throws IOException {
+        return userBase.getUser(userID);
     }
 
     @Override
-    public void addPost(Post post) {
-
+    public void addPost(Post post) throws IOException {
+        postBase.addPost(post);
     }
 
     @Override
