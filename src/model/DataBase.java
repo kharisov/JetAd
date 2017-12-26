@@ -18,7 +18,7 @@ public class DataBase implements AbstractModel {
         userBase = new UserBase(userBasePath);
     }
 
-    public DataBase getInstance() {
+    static public DataBase getInstance() {
         if (instance == null) {
             instance = new DataBase();
         }

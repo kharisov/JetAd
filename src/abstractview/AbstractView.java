@@ -5,7 +5,7 @@ import adobjects.Post;
 import adobjects.User;
 
 public abstract class AbstractView {
-    private AbstractControl controller;
+    protected AbstractControl control;
 
     abstract public void update(Post[] data);
     abstract public void update(User data);

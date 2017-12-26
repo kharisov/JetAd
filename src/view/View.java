@@ -1,5 +1,6 @@
 package view;
 
+import abstractcontrol.AbstractControl;
 import abstractview.AbstractView;
 import adobjects.Post;
 import adobjects.User;
@@ -27,11 +28,15 @@ public class View extends AbstractView {
     private JButton submitLoginButton = new JButton("Submit");
     private JButton submitRegisterButton = new JButton("Submit");
 
-    public View() {
+    public View(AbstractControl control) {
+        this.control = control;
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(WIDTH_PIXELS, HEIGHT_PIXELS);
         showLoginButton.addActionListener(new showLoginListener());
         showRegisterButton.addActionListener(new showRegisterListener());
+        submitLoginButton.addActionListener(new submitLoginListener());
+        submitRegisterButton.addActionListener(new submitRegisterListener());
+        userTypeComboBox.setSelectedIndex(0);
     }
 
     public void startSession() {
@@ -81,6 +86,8 @@ public class View extends AbstractView {
             panel.add(loginField, c);
             c.gridy = 1;
             panel.add(passwordField, c);
+            c.gridy = 2;
+            panel.add(submitLoginButton);
             frame.setVisible(true);
             frame.repaint();
         }
@@ -100,6 +107,8 @@ public class View extends AbstractView {
             panel.add(passwordField, c);
             c.gridy = 2;
             panel.add(userTypeComboBox, c);
+            c.gridy = 3;
+            panel.add(submitLoginButton);
             frame.setVisible(true);
             frame.repaint();
         }
@@ -108,26 +117,14 @@ public class View extends AbstractView {
     class submitLoginListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            control.login(loginField.getText(), passwordField.getText());
         }
     }
 
-    class showRegisterListener implements ActionListener {
+    class submitRegisterListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            panel.removeAll();
-            GridBagConstraints c = new GridBagConstraints();
-            c.gridx = 0;
-            c.gridy = 0;
-            c.fill = GridBagConstraints.HORIZONTAL;
-            c.gridwidth = 1;
-            panel.add(loginField, c);
-            c.gridy = 1;
-            panel.add(passwordField, c);
-            c.gridy = 2;
-            panel.add(userTypeComboBox, c);
-            frame.setVisible(true);
-            frame.repaint();
+            control.register(loginField.getText(), passwordField.getText(),  Integer.parseInt((String) userTypeComboBox.getSelectedItem()));
         }
     }
 
