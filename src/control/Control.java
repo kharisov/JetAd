@@ -22,14 +22,26 @@ public class Control extends AbstractControl{
     public void endWork(){
 
     }
-    public void login(String login, String password){
+    public void login(String login, String password) {
         User me;
         me = model.login(login, password);
-        view.update(me);
+        if (me == null) {
+            view.updateError();
+        } else {
+            this.currentUser = me;
+            view.update(me);
+        }
     }
     public void register(String login, String password, int type){
         try {
-            model.addUser(login, password, type);
+            User me;
+            me = model.addUser(login, password, type);
+            if (me == null) {
+                view.updateError();
+            } else {
+                this.currentUser = me;
+                view.update(me);
+            }
         }
         catch (IOException err){
             view.updateError();
