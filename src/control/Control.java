@@ -65,9 +65,9 @@ public class Control extends AbstractControl{
     }
     public void openPost(int postID){}
     public void search(String subject){
-        User found;
+        User[] found;
         found = model.find(subject);
-        if (found == null){
+        if (found.length == 0){
             view.updateError();
         }
         else{
