@@ -10,10 +10,11 @@ import java.awt.*;
 
 public class View extends AbstractView {
     private JFrame frame = new JFrame();
-    private JPanel canvas = new Canvas();
 
     public void startSession() {
-
+        //JTextField text = new JTextField("ASD");
+        //frame.add(text);
+        //text.setVisible(true);
     }
 
     @Override
