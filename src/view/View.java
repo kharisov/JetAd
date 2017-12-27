@@ -36,7 +36,9 @@ public class View extends AbstractView {
     private JTextField searchField = new HintTextField("Enter shop name", 20);
     private JButton searchFieldButton = new JButton("Search");
     private JButton showFeedButton = new JButton("Show Feed");
-    private JButton publicPostButton = new JButton("Public Post");
+    private JButton showPublicPostButton = new JButton("Public Post");
+    private JTextField headerField = new HintTextField("Header", 30);
+    private JButton submitPublicPostButton = new JButton("Submit");
 
     public View(AbstractControl control) {
         this.control = control;
@@ -51,7 +53,8 @@ public class View extends AbstractView {
         showMyProfileButton.addActionListener(new showMyProfileListener());
         searchFieldButton.addActionListener(new searchListener());
         showFeedButton.addActionListener(new showFeedListener());
-        publicPostButton.addActionListener(new publicPostListener());
+        showPublicPostButton.addActionListener(new showPublicPostListener());
+        submitPublicPostButton.addActionListener(new submitPublicPostListener());
     }
 
     public void startSession() {
@@ -126,7 +129,7 @@ public class View extends AbstractView {
             c.gridwidth = 1;
             buttonsPanel.add(showMyProfileButton, c);
             c.gridy = 1;
-            buttonsPanel.add(publicPostButton, c);
+            buttonsPanel.add(showPublicPostButton, c);
             dataPanel.setPreferredSize(new Dimension(WIDTH_PIXELS, DATA_HEIGHT_PIXELS));
             buttonsPanelAdded = true;
         }
@@ -225,7 +228,7 @@ public class View extends AbstractView {
             c.gridy = 2;
             dataPanel.add(userTypeComboBox, c);
             c.gridy = 3;
-            dataPanel.add(submitLoginButton, c);
+            dataPanel.add(submitRegisterButton, c);
             frame.setVisible(true);
             frame.repaint();
         }
@@ -241,7 +244,12 @@ public class View extends AbstractView {
     class submitRegisterListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            control.register(loginField.getText(), passwordField.getText(),  Integer.parseInt((String) userTypeComboBox.getSelectedItem()));
+            int type;
+            if (((String) userTypeComboBox.getSelectedItem()).equals("customer"))
+                type = User.CUSTOMER_TYPE;
+            else
+                type = User.SHOP_TYPE;
+            control.register(loginField.getText(), passwordField.getText(),  type);
         }
     }
 
@@ -282,15 +290,33 @@ public class View extends AbstractView {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            control.showFeed();
         }
     }
 
-    class publicPostListener implements ActionListener {
+    class showPublicPostListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            dataPanel.removeAll();
+            GridBagConstraints c = new GridBagConstraints();
+            c.gridx = 0;
+            c.gridy = 0;
+            c.fill = GridBagConstraints.HORIZONTAL;
+            c.gridwidth = 1;
+            dataPanel.add(headerField, c);
+            c.gridy = 1;
+            dataPanel.add(submitPublicPostButton, c);
+            frame.setVisible(true);
+            frame.repaint();
+        }
+    }
 
+    class submitPublicPostListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            control.publicPost(headerField.getText());
         }
     }
 
