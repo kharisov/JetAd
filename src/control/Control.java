@@ -26,7 +26,7 @@ public class Control extends AbstractControl{
         User me;
         me = model.login(login, password);
         if (me == null) {
-            view.updateError();
+            view.updateMessage("FATAL ERROR!!!");
         } else {
             this.currentUser = me;
             view.update(me);
@@ -36,14 +36,14 @@ public class Control extends AbstractControl{
         try {
             User me = model.addUser(login, password, type);
             if (me == null) {
-                view.updateError();
+                view.updateMessage("FATAL ERROR!!!");
             } else {
                 this.currentUser = me;
                 view.update(me);
             }
         }
         catch (IOException err){
-            view.updateError();
+            view.updateMessage("FATAL ERROR!!!");
         }
     }
     public void showFeed(){
@@ -56,17 +56,17 @@ public class Control extends AbstractControl{
             view.update(us);
         }
         catch (IOException err){
-            view.updateError();
+            view.updateMessage("FATAL ERROR!!!");
         }
     }
     public void showMyProfile(){
-        showProfile(currentUser.getId());
+        view.update(currentUser);
     }
     public void openPost(int postID){}
     public void search(String subject){
         User[] found = model.find(subject);
         if (found.length == 0){
-            view.updateError();
+            view.updateMessage("No shops!");
         }
         else{
             view.update(found);
@@ -75,8 +75,8 @@ public class Control extends AbstractControl{
     public void publicPost(int postID){}
     public void subscribe(int userID){
         boolean result = model.subscribe(currentUser.getId(), userID);
-        if (result){
-            view.updateError();
+        if (!result){
+            view.updateMessage("FATAL ERROR!!!");
         }
     }
     public void showSubscribers(){}

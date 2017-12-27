@@ -79,6 +79,11 @@ public class UserBase {
     public boolean subscribe(int subscriber, int subscription){
         String name = "sub" + Integer.toString(subscriber) + ".txt";
         Path path = FileSystems.getDefault().getPath(dbPath, name);
+        try {
+            path.toFile().createNewFile();
+        } catch (IOException i) {
+            return false;
+        }
         try (BufferedReader reader = Files.newBufferedReader(path)) {
             String line;
             while((line = reader.readLine()) != null) {
@@ -96,12 +101,11 @@ public class UserBase {
         }
         try {
             String line = Integer.toString(subscription) + System.lineSeparator();
-            Files.write(path, line.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
+            Files.write(path, line.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND, StandardOpenOption.CREATE);
             return true;
         }
         catch (IOException exc){
             return false;
         }
-
     }
 }

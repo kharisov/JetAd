@@ -10,5 +10,5 @@ public abstract class AbstractView {
     abstract public void update(Post[] data);
     abstract public void update(User data);
     abstract public void update(User[] data);
-    abstract public void updateError();
+    abstract public void updateMessage(String message);
 }

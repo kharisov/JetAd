@@ -28,7 +28,7 @@ public class View extends AbstractView {
     private JComboBox<String> userTypeComboBox = new JComboBox<>(USER_TYPES);
     private JButton submitLoginButton = new JButton("Submit");
     private JButton submitRegisterButton = new JButton("Submit");
-    private JTextField errorField = new JTextField("FATAL ERROR!!!!!", 30);
+    private JTextField messageField = new JTextField();
     private JTextField userType = new JTextField(30);
     private boolean buttonsPanelAdded = false;
     private JPanel buttonsPanel = new JPanel();
@@ -45,7 +45,7 @@ public class View extends AbstractView {
         submitLoginButton.addActionListener(new submitLoginListener());
         submitRegisterButton.addActionListener(new submitRegisterListener());
         userTypeComboBox.setSelectedIndex(0);
-        errorField.setEditable(false);
+        messageField.setEditable(false);
         showMyProfileButton.addActionListener(new showMyProfileListener());
         searchFieldButton.addActionListener(new searchListener());
     }
@@ -140,14 +140,15 @@ public class View extends AbstractView {
     }
 
     @Override
-    public void updateError() {
+    public void updateMessage(String message) {
         dataPanel.removeAll();
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 0;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 1;
-        dataPanel.add(errorField, c);
+        messageField.setText(message);
+        dataPanel.add(messageField, c);
         frame.setVisible(true);
         frame.repaint();
     }
