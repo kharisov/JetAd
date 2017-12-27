@@ -9,13 +9,14 @@ public class Post {
     private int id;
     private long date;
     private int ownerId;
+    private String content;
 
-    public Post(String header, int owner) {
+    public Post(String header, String content, int owner) {
         this.header = header;
         this.ownerId = owner;
     }
 
-    public Post(String header, int id, int owner){
+    public Post(String header, String content, int id, int owner){
         this.header = header;
         this.id = id;
         this.ownerId = owner;
@@ -24,6 +25,8 @@ public class Post {
     public String getHeader() {
         return header;
     }
+
+    public String getContent(){ return content; }
 
     public byte[] getImage() {
         return image;
