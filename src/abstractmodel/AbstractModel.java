@@ -13,4 +13,5 @@ public interface AbstractModel {
     User login(String login, String password);
     User[] getSubscribers(int userID);
     User[] find(String login);
+    boolean subscribe(int subscriber, int subscription);
 }

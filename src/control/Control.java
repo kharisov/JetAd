@@ -73,6 +73,11 @@ public class Control extends AbstractControl{
         }
     }
     public void publicPost(int postID){}
-    public void subscribe(int userID){}
+    public void subscribe(int userID){
+        boolean result = model.subscribe(currentUser.getId(), userID);
+        if (result){
+            view.updateError();
+        }
+    }
     public void showSubscribers(){}
 }

@@ -75,4 +75,33 @@ public class UserBase {
         }
         return matches.toArray(new User[matches.size()]);
     }
+
+    public boolean subscribe(int subscriber, int subscription){
+        String name = "sub" + Integer.toString(subscriber) + ".txt";
+        Path path = FileSystems.getDefault().getPath(dbPath, name);
+        try (BufferedReader reader = Files.newBufferedReader(path)) {
+            String line;
+            while((line = reader.readLine()) != null) {
+                try {
+                    if (Integer.parseInt(line) == subscription) {
+                        return true;
+                    }
+                } catch (NumberFormatException n) {
+                    System.out.println("cant parse int");
+                }
+            }
+        }
+        catch (IOException exc){
+            return false;
+        }
+        try {
+            String line = Integer.toString(subscription) + System.lineSeparator();
+            Files.write(path, line.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
+            return true;
+        }
+        catch (IOException exc){
+            return false;
+        }
+
+    }
 }

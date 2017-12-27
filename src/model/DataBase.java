@@ -79,4 +79,9 @@ public class DataBase implements AbstractModel {
             return null;
         }
     }
+
+    @Override
+    public boolean subscribe(int subscriber, int subscription) {
+        return userBase.subscribe(subscriber, subscription);
+    }
 }
