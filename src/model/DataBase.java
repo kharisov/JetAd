@@ -45,7 +45,10 @@ public class DataBase implements AbstractModel {
 
     @Override
     public void addPost(Post post) throws IOException {
-        postBase.addPost(post);
+        int ownerId = post.getOwnerId();
+        int postId = postBase.addPost(post);
+        boolean result = userBase.addLink(ownerId, postId);
+
     }
 
     @Override

@@ -16,7 +16,7 @@ public class PostBase {
         this.dbPath = dbPath;
     }
 
-    public void addPost(Post post) throws IOException {
+    public int addPost(Post post) throws IOException {
         Path path = FileSystems.getDefault().getPath(dbPath, IDS_FILENAME);
         int id = Integer.parseInt(new String(Files.readAllBytes(path)));
         String idString = Integer.toString(id + 1);
@@ -24,6 +24,7 @@ public class PostBase {
         path = FileSystems.getDefault().getPath(dbPath, Integer.toString(id) + ".txt");
         String info = post.getHeader() + System.lineSeparator() + Integer.toString(post.getOwnerId()) + System.lineSeparator();
         Files.write(path, (info).getBytes(StandardCharsets.UTF_8));
+        return id;
     }
 
     public Post getPost(int postID) throws IOException {

@@ -106,4 +106,22 @@ public class UserBase {
             return false;
         }
     }
+
+    boolean addLink(int ownerId, int postId){
+        String name = "post" + Integer.toString(ownerId) + ".txt";
+        Path path = FileSystems.getDefault().getPath(dbPath, name);
+        try {
+            path.toFile().createNewFile();
+        } catch (IOException i) {
+            return false;
+        }
+        try {
+            String line = Integer.toString(postId) + System.lineSeparator();
+            Files.write(path, line.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND, StandardOpenOption.CREATE);
+            return true;
+        }
+        catch (IOException exc){
+            return false;
+        }
+    }
 }
