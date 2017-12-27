@@ -35,6 +35,8 @@ public class View extends AbstractView {
     private JButton showMyProfileButton = new JButton("My profile");
     private JTextField searchField = new HintTextField("Enter shop name", 20);
     private JButton searchFieldButton = new JButton("Search");
+    private JButton showFeedButton = new JButton("Show Feed");
+    private JButton publicPostButton = new JButton("Public Post");
 
     public View(AbstractControl control) {
         this.control = control;
@@ -48,6 +50,8 @@ public class View extends AbstractView {
         messageField.setEditable(false);
         showMyProfileButton.addActionListener(new showMyProfileListener());
         searchFieldButton.addActionListener(new searchListener());
+        showFeedButton.addActionListener(new showFeedListener());
+        publicPostButton.addActionListener(new publicPostListener());
     }
 
     public void startSession() {
@@ -59,18 +63,17 @@ public class View extends AbstractView {
         c.gridy = 0;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 1;
-        dataPanel.add(showLoginButton, c);
-        c.gridy = 1;
         dataPanel.add(showRegisterButton, c);
+        c.gridy = 1;
+        dataPanel.add(showLoginButton, c);
         frame.setVisible(true);
     }
 
     @Override
-    public void update(Post[] data) {
-    }
+    public void update(Post[] data) { }
 
     @Override
-    public void update(User data) {
+    public void updateForCustomer(User data) {
         if (!buttonsPanelAdded) {
             buttonsPanel.setLayout(new GridBagLayout());
             buttonsPanel.setPreferredSize(new Dimension(WIDTH_PIXELS, HEIGHT_PIXELS - DATA_HEIGHT_PIXELS));
@@ -86,6 +89,9 @@ public class View extends AbstractView {
             buttonsPanel.add(searchField, c);
             c.gridx = 1;
             buttonsPanel.add(searchFieldButton, c);
+            c.gridx = 0;
+            c.gridy = 2;
+            buttonsPanel.add(showFeedButton, c);
             dataPanel.setPreferredSize(new Dimension(WIDTH_PIXELS, DATA_HEIGHT_PIXELS));
             buttonsPanelAdded = true;
         }
@@ -100,10 +106,42 @@ public class View extends AbstractView {
         dataPanel.add(loginField, c);
         c.gridy = 1;
         userType.setEditable(false);
-        if (data.getType() == 0)
-            userType.setText("Customer");
-        else
-            userType.setText("Shop");
+        userType.setText("Customer");
+        dataPanel.add(userType, c);
+        frame.setVisible(true);
+        frame.repaint();
+    }
+
+    @Override
+    public void updateForShop(User data) {
+        if (!buttonsPanelAdded) {
+            buttonsPanel.setLayout(new GridBagLayout());
+            buttonsPanel.setPreferredSize(new Dimension(WIDTH_PIXELS, HEIGHT_PIXELS - DATA_HEIGHT_PIXELS));
+            buttonsPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            frame.add(BorderLayout.NORTH, buttonsPanel);
+            GridBagConstraints c = new GridBagConstraints();
+            c.gridx = 0;
+            c.gridy = 0;
+            c.fill = GridBagConstraints.HORIZONTAL;
+            c.gridwidth = 1;
+            buttonsPanel.add(showMyProfileButton, c);
+            c.gridy = 1;
+            buttonsPanel.add(publicPostButton, c);
+            dataPanel.setPreferredSize(new Dimension(WIDTH_PIXELS, DATA_HEIGHT_PIXELS));
+            buttonsPanelAdded = true;
+        }
+        dataPanel.removeAll();
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridwidth = 1;
+        loginField.setEditable(false);
+        loginField.setText(data.getLogin());
+        dataPanel.add(loginField, c);
+        c.gridy = 1;
+        userType.setEditable(false);
+        userType.setText("Shop");
         dataPanel.add(userType, c);
         frame.setVisible(true);
         frame.repaint();
@@ -187,7 +225,7 @@ public class View extends AbstractView {
             c.gridy = 2;
             dataPanel.add(userTypeComboBox, c);
             c.gridy = 3;
-            dataPanel.add(submitLoginButton);
+            dataPanel.add(submitLoginButton, c);
             frame.setVisible(true);
             frame.repaint();
         }
@@ -237,6 +275,22 @@ public class View extends AbstractView {
             button.setEnabled(false);
             button.setText("Subscribed");
             frame.repaint();
+        }
+    }
+
+    class showFeedListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
+
+    class publicPostListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
         }
     }
 

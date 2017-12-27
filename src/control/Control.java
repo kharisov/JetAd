@@ -19,9 +19,7 @@ public class Control extends AbstractControl{
     public void useModel(AbstractModel model){
         this.model = model;
     }
-    public void endWork(){
-
-    }
+    public void endWork(){}
     public void login(String login, String password) {
         User me;
         me = model.login(login, password);
@@ -29,7 +27,10 @@ public class Control extends AbstractControl{
             view.updateMessage("FATAL ERROR!!!");
         } else {
             this.currentUser = me;
-            view.update(me);
+            if (me.getType() == User.CUSTOMER_TYPE)
+                view.updateForCustomer(me);
+            else
+                view.updateForShop(me);
         }
     }
     public void register(String login, String password, int type){
@@ -39,7 +40,10 @@ public class Control extends AbstractControl{
                 view.updateMessage("FATAL ERROR!!!");
             } else {
                 this.currentUser = me;
-                view.update(me);
+                if (me.getType() == User.CUSTOMER_TYPE)
+                    view.updateForCustomer(me);
+                else
+                    view.updateForShop(me);
             }
         }
         catch (IOException err){
@@ -53,14 +57,17 @@ public class Control extends AbstractControl{
     public void showProfile(int userID){
         try{
             User us = model.getUser(userID);
-            view.update(us);
+            view.updateForCustomer(us);
         }
         catch (IOException err){
             view.updateMessage("FATAL ERROR!!!");
         }
     }
     public void showMyProfile(){
-        view.update(currentUser);
+        if (currentUser.getType() == User.CUSTOMER_TYPE)
+            view.updateForCustomer(currentUser);
+        else
+            view.updateForShop(currentUser);
     }
     public void openPost(int postID){}
     public void search(String subject){
@@ -72,7 +79,9 @@ public class Control extends AbstractControl{
             view.update(found);
         }
     }
-    public void publicPost(int postID){}
+    public void publicPost(int postID){
+        
+    }
     public void subscribe(int userID){
         boolean result = model.subscribe(currentUser.getId(), userID);
         if (!result){

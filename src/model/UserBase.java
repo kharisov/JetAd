@@ -28,7 +28,7 @@ public class UserBase {
                 if (fields[0].equals(login) && fields[1].equals(password)) {
                     try {
                         return new User(fields[0], Integer.parseInt(fields[2]), Integer.parseInt(fields[3]));
-                    } catch (NumberFormatException n) {}
+                    } catch (NumberFormatException n) { }
                 }
             }
         }
