@@ -38,6 +38,7 @@ public class View extends AbstractView {
     private JButton showFeedButton = new JButton("Show Feed");
     private JButton showPublicPostButton = new JButton("Public Post");
     private JTextField headerField = new HintTextField("Header", 30);
+    private JTextField postTextField = new HintTextField("Post text", 30);
     private JButton submitPublicPostButton = new JButton("Submit");
 
     public View(AbstractControl control) {
@@ -81,9 +82,17 @@ public class View extends AbstractView {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 1;
         for (Post p : data) {
-            JTextField header = new JTextField(p.getHeader(), 30);
+            JTextField header = new JTextField("Header: " + p.getHeader(), 30);
             header.setEditable(false);
+            JTextField owner = new JTextField("Owner: " + p.getOwnerId(), 30);
+            owner.setEditable(false);
+            JTextField text = new JTextField("Text:" + p.getContent(), 30);
+            text.setEditable(false);
+            dataPanel.add(owner, c);
+            c.gridy++;
             dataPanel.add(header, c);
+            c.gridy++;
+            dataPanel.add(text, c);
             c.gridy++;
         }
         frame.setVisible(true);
@@ -321,6 +330,8 @@ public class View extends AbstractView {
             c.gridwidth = 1;
             dataPanel.add(headerField, c);
             c.gridy = 1;
+            dataPanel.add(postTextField, c);
+            c.gridy = 2;
             dataPanel.add(submitPublicPostButton, c);
             frame.setVisible(true);
             frame.repaint();
@@ -331,7 +342,7 @@ public class View extends AbstractView {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            control.publicPost(headerField.getText());
+            control.publicPost(headerField.getText(), postTextField.getText());
         }
     }
 
