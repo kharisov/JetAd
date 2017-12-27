@@ -34,8 +34,7 @@ public class Control extends AbstractControl{
     }
     public void register(String login, String password, int type){
         try {
-            User me;
-            me = model.addUser(login, password, type);
+            User me = model.addUser(login, password, type);
             if (me == null) {
                 view.updateError();
             } else {
@@ -65,8 +64,7 @@ public class Control extends AbstractControl{
     }
     public void openPost(int postID){}
     public void search(String subject){
-        User[] found;
-        found = model.find(subject);
+        User[] found = model.find(subject);
         if (found.length == 0){
             view.updateError();
         }

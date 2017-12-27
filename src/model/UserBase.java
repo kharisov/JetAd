@@ -73,6 +73,6 @@ public class UserBase {
                 }
             }
         }
-        return (User [])matches.toArray();
+        return matches.toArray(new User[matches.size()]);
     }
 }
