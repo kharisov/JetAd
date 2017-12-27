@@ -5,6 +5,7 @@ import adobjects.Post;
 import adobjects.User;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class DataBase implements AbstractModel {
     private static final String postBasePath = "postBase";
@@ -52,8 +53,14 @@ public class DataBase implements AbstractModel {
     }
 
     @Override
-    public Post[] getFeed(int userID) {
-        return new Post[0];
+    public Post[] getFeed(int userID) throws IOException {
+        Integer[] postsIDs = userBase.getFeed(userID);
+        ArrayList<Post> feed = new ArrayList<>();
+        for (Integer i : postsIDs){
+            Post post = postBase.getPost(i);
+            feed.add(post);
+        }
+        return feed.toArray(new Post[feed.size()]);
     }
 
     @Override

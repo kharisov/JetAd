@@ -53,8 +53,13 @@ public class Control extends AbstractControl{
         }
     }
     public void showFeed(){
-        Post[] feed = model.getFeed(currentUser.getId());
-        view.update(feed);
+        try {
+            Post[] feed = model.getFeed(currentUser.getId());
+            view.update(feed);
+        }
+        catch (IOException e){
+            view.updateMessage("Oops! Something gone wrong, try later.");
+        }
     }
     public void showProfile(int userID){
         try{

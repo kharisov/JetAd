@@ -124,4 +124,39 @@ public class UserBase {
             return false;
         }
     }
+
+    public Integer[] getFeed(int userID) throws IOException{
+        ArrayList<Integer> subscriptions = new ArrayList<>();
+        String name = "sub" + Integer.toString(userID) + ".txt";
+        Path path = FileSystems.getDefault().getPath(dbPath, name);
+        try (BufferedReader reader = Files.newBufferedReader(path)) {
+            String line;
+            while((line = reader.readLine()) != null) {
+                try {
+                     subscriptions.add(Integer.parseInt(line));
+                }
+                catch (NumberFormatException n) {
+                    throw new IOException(n);
+                }
+            }
+        }
+        ArrayList<Integer> feed = new ArrayList<>();
+        for (Integer i : subscriptions){
+            name = "post" + Integer.toString(i) + ".txt";
+            path = FileSystems.getDefault().getPath(dbPath, name);
+            try (BufferedReader reader = Files.newBufferedReader(path)) {
+                String line;
+                while((line = reader.readLine()) != null) {
+                    try {
+                        feed.add(Integer.parseInt(line));
+                    }
+                    catch (NumberFormatException n) {
+                        throw new IOException(n);
+                    }
+                }
+            }
+        }
+        return feed.toArray(new Integer[feed.size()]);
+    }
+
 }
