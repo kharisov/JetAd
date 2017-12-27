@@ -84,10 +84,13 @@ public class View extends AbstractView {
         for (Post p : data) {
             JTextField header = new JTextField("Header: " + p.getHeader(), 30);
             header.setEditable(false);
+            header.setBorder(BorderFactory.createMatteBorder(0, 2, 0, 2, Color.MAGENTA));
             JTextField owner = new JTextField("Owner: " + p.getOwnerId(), 30);
             owner.setEditable(false);
-            JTextField text = new JTextField("Text:" + p.getContent(), 30);
+            owner.setBorder(BorderFactory.createMatteBorder(2, 2, 0, 2, Color.MAGENTA));
+            JTextField text = new JTextField("Text: " + p.getContent(), 30);
             text.setEditable(false);
+            text.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, Color.MAGENTA));
             dataPanel.add(owner, c);
             c.gridy++;
             dataPanel.add(header, c);
