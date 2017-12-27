@@ -23,6 +23,7 @@ public class PostBase {
         Files.write(path, idString.getBytes(StandardCharsets.UTF_8));
         path = FileSystems.getDefault().getPath(dbPath, Integer.toString(id) + ".txt");
         String info = post.getHeader() + System.lineSeparator() + Integer.toString(post.getOwnerId()) + System.lineSeparator();
+        info = info + post.getContent() + System.lineSeparator();
         Files.write(path, (info).getBytes(StandardCharsets.UTF_8));
         return id;
     }
@@ -30,7 +31,7 @@ public class PostBase {
     public Post getPost(int postID) throws IOException {
         Path path = FileSystems.getDefault().getPath(dbPath, Integer.toString(postID) + ".txt");
         try (BufferedReader reader = Files.newBufferedReader(path)) {
-            String line = reader.readLine();
+            String header = reader.readLine();
             String own = reader.readLine();
             int ownerId;
             try {
@@ -38,7 +39,8 @@ public class PostBase {
             } catch (NumberFormatException n) {
                  throw new IOException(n);
             }
-            return new Post(line, postID, ownerId);
+            String content = reader.readLine();
+            return new Post(header, content, postID, ownerId);
         }
     }
 }

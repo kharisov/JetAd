@@ -61,7 +61,6 @@ public class Control extends AbstractControl{
             view.updateMessage("Oops! Something gone wrong, try later.");
         }
     }
-
     public void showProfile(int userID){
         try{
             User us = model.getUser(userID);
@@ -90,9 +89,9 @@ public class Control extends AbstractControl{
             view.update(found);
         }
     }
-    public void publicPost(String content){
+    public void publicPost(String header, String content){
         try {
-            Post post = new Post(content, currentUser.getId());
+            Post post = new Post(header, content, currentUser.getId());
             model.addPost(post);
             view.updateMessage("Success! Good job, man, you gonna get rich now!");
         }
