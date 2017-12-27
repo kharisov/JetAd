@@ -29,7 +29,10 @@ public class Control extends AbstractControl{
             view.updateMessage("FATAL ERROR!!!");
         } else {
             this.currentUser = me;
-            view.update(me);
+            if (currentUser.getType() == User.CUSTOMER_TYPE)
+                view.updateForCustomer(me);
+            else
+                view.updateForShop(me);
         }
     }
     public void register(String login, String password, int type){
@@ -39,7 +42,10 @@ public class Control extends AbstractControl{
                 view.updateMessage("FATAL ERROR!!!");
             } else {
                 this.currentUser = me;
-                view.update(me);
+                if (currentUser.getType() == User.CUSTOMER_TYPE)
+                    view.updateForCustomer(me);
+                else
+                    view.updateForShop(me);
             }
         }
         catch (IOException err){
@@ -53,14 +59,20 @@ public class Control extends AbstractControl{
     public void showProfile(int userID){
         try{
             User us = model.getUser(userID);
-            view.update(us);
+            if (currentUser.getType() == User.CUSTOMER_TYPE)
+                view.updateForCustomer(us);
+            else
+                view.updateForShop(us);
         }
         catch (IOException err){
             view.updateMessage("FATAL ERROR!!!");
         }
     }
     public void showMyProfile(){
-        view.update(currentUser);
+        if (currentUser.getType() == User.CUSTOMER_TYPE)
+            view.updateForCustomer(currentUser);
+        else
+            view.updateForShop(currentUser);
     }
     public void openPost(int postID){}
     public void search(String subject){
