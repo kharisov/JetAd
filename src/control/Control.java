@@ -72,7 +72,16 @@ public class Control extends AbstractControl{
             view.update(found);
         }
     }
-    public void publicPost(int postID){}
+    public void publicPost(String content){
+        try {
+            Post post = new Post(content, currentUser.getId());
+            model.addPost(post);
+            view.updateMessage("Success! Good job, man, you gonna get rich now!");
+        }
+        catch (IOException err){
+            view.updateMessage("We can't add posts. So sorry, dude, try later!");
+        }
+    }
     public void subscribe(int userID){
         boolean result = model.subscribe(currentUser.getId(), userID);
         if (!result){

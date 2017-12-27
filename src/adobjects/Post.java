@@ -10,8 +10,15 @@ public class Post {
     private long date;
     private int ownerId;
 
-    public Post(String header) {
+    public Post(String header, int owner) {
         this.header = header;
+        this.ownerId = owner;
+    }
+
+    public Post(String header, int id, int owner){
+        this.header = header;
+        this.id = id;
+        this.ownerId = owner;
     }
 
     public String getHeader() {
