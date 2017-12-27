@@ -35,14 +35,24 @@ public class UserBase {
         return null;
     }
 
-    public void addUser(String login, String password, int userType) throws IOException {
-        Path path = FileSystems.getDefault().getPath(dbPath, IDS_FILENAME);
+    public User addUser(String login, String password, int userType) throws IOException {
+        Path path = FileSystems.getDefault().getPath(dbPath, USERS_FILENAME);
+        try (BufferedReader reader = Files.newBufferedReader(path)) {
+            String line;
+            while((line = reader.readLine()) != null) {
+                String[] fields = line.split(" ");
+                if (fields[0].equals(login))
+                    return null;
+            }
+        }
+        path = FileSystems.getDefault().getPath(dbPath, IDS_FILENAME);
         int id = Integer.parseInt(new String(Files.readAllBytes(path)));
         String idString = Integer.toString(id + 1);
         Files.write(path, idString.getBytes(StandardCharsets.UTF_8));
         path = FileSystems.getDefault().getPath(dbPath, USERS_FILENAME);
         String line = login + " " + password + " " + id + " " + userType + System.lineSeparator();
         Files.write(path, line.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
+        return new User(login, id, userType);
     }
 
     public User getUser(int userID) throws IOException {

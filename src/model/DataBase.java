@@ -27,15 +27,7 @@ public class DataBase implements AbstractModel {
 
     @Override
     public User addUser(String login, String password, int type) throws IOException {
-        userBase.addUser(login, password, type);
-        User user;
-        try {
-            user = userBase.checkExistance(login, password);
-            return user;
-        }
-        catch (IOException err){
-            return null;
-        }
+        return userBase.addUser(login, password, type);
     }
 
     @Override

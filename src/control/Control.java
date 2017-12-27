@@ -56,6 +56,7 @@ public class Control extends AbstractControl{
         Post[] feed = model.getFeed(currentUser.getId());
         view.update(feed);
     }
+
     public void showProfile(int userID){
         try{
             User us = model.getUser(userID);

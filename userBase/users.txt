@@ -1,2 +1,4 @@
 Damir 1234 0 0
 Julia 1111 1 1
+Zara 1 2 1
+Pull&Bear 2 3 1
