@@ -61,6 +61,7 @@ public class Control extends AbstractControl{
             view.updateMessage("Oops! Something gone wrong, try later.");
         }
     }
+
     public void showProfile(int userID){
         try{
             User us = model.getUser(userID);

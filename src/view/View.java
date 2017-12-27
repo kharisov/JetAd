@@ -73,7 +73,22 @@ public class View extends AbstractView {
     }
 
     @Override
-    public void update(Post[] data) { }
+    public void update(Post[] data) {
+        dataPanel.removeAll();
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridwidth = 1;
+        for (Post p : data) {
+            JTextField header = new JTextField(p.getHeader(), 30);
+            header.setEditable(false);
+            dataPanel.add(header, c);
+            c.gridy++;
+        }
+        frame.setVisible(true);
+        frame.repaint();
+    }
 
     @Override
     public void updateForCustomer(User data) {
