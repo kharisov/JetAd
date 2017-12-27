@@ -130,6 +130,10 @@ public class View extends AbstractView {
             c.gridy++;
             dataPanel.add(type, c);
             c.gridy++;
+            JButton button = new JButton("Subscribe");
+            button.addActionListener(new subscribeListener(u.getId(), button));
+            dataPanel.add(button, c);
+            c.gridy++;
         }
         frame.setVisible(true);
         frame.repaint();
@@ -161,7 +165,7 @@ public class View extends AbstractView {
             c.gridy = 1;
             dataPanel.add(passwordField, c);
             c.gridy = 2;
-            dataPanel.add(submitLoginButton);
+            dataPanel.add(submitLoginButton, c);
             frame.setVisible(true);
             frame.repaint();
         }
@@ -213,6 +217,25 @@ public class View extends AbstractView {
         @Override
         public void actionPerformed(ActionEvent e) {
             control.search(searchField.getText());
+        }
+    }
+
+    class subscribeListener implements ActionListener {
+        private int id;
+        private JButton button;
+
+
+        public subscribeListener(int id, JButton button) {
+            this.id = id;
+            this.button = button;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            control.subscribe(id);
+            button.setEnabled(false);
+            button.setText("Subscribed");
+            frame.repaint();
         }
     }
 
