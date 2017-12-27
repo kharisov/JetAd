@@ -73,7 +73,7 @@ public class DataBase implements AbstractModel {
     @Override
     public User[] find(String login){
         try {
-            return userBase.findUser(login);
+            return userBase.findShops(login);
         }
         catch (IOException err){
             return null;

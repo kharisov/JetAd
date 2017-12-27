@@ -61,14 +61,14 @@ public class UserBase {
         return null;
     }
 
-    public User[] findUser(String login) throws IOException {
+    public User[] findShops(String login) throws IOException {
         ArrayList<User> matches = new ArrayList<>();
         Path path = FileSystems.getDefault().getPath(dbPath, USERS_FILENAME);
         try (BufferedReader reader = Files.newBufferedReader(path)) {
             String line;
             while((line = reader.readLine()) != null) {
                 String[] fields = line.split(" ");
-                if (fields[0].equals(login)) {
+                if (fields[0].equals(login) && fields[3].equals("1")) {
                     matches.add(new User(fields[0], Integer.parseInt(fields[2]), Integer.parseInt(fields[3])));
                 }
             }
