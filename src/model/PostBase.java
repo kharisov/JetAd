@@ -22,14 +22,22 @@ public class PostBase {
         String idString = Integer.toString(id + 1);
         Files.write(path, idString.getBytes(StandardCharsets.UTF_8));
         path = FileSystems.getDefault().getPath(dbPath, Integer.toString(id) + ".txt");
-        Files.write(path, (post.getHeader() + System.lineSeparator()).getBytes(StandardCharsets.UTF_8));
+        String info = post.getHeader() + System.lineSeparator() + Integer.toString(post.getOwnerId()) + System.lineSeparator();
+        Files.write(path, (info).getBytes(StandardCharsets.UTF_8));
     }
 
     public Post getPost(int postID) throws IOException {
         Path path = FileSystems.getDefault().getPath(dbPath, Integer.toString(postID) + ".txt");
         try (BufferedReader reader = Files.newBufferedReader(path)) {
             String line = reader.readLine();
-            return new Post(line);
+            String own = reader.readLine();
+            int ownerId;
+            try {
+                ownerId = Integer.parseInt(own);
+            } catch (NumberFormatException n) {
+                 throw new IOException(n);
+            }
+            return new Post(line, postID, ownerId);
         }
     }
 }

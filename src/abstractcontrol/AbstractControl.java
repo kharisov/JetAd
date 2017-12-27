@@ -19,7 +19,7 @@ public abstract class AbstractControl {
     abstract public void showMyProfile();
     abstract public void openPost(int postID);
     abstract public void search(String subject);
-    abstract public void publicPost(int postID);
+    abstract public void publicPost(String content);
     abstract public void subscribe(int userID);
     abstract public void showSubscribers();
 }

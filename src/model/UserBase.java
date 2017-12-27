@@ -96,9 +96,7 @@ public class UserBase {
                 }
             }
         }
-        catch (IOException exc){
-            return false;
-        }
+        catch (IOException exc){}
         try {
             String line = Integer.toString(subscription) + System.lineSeparator();
             Files.write(path, line.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND, StandardOpenOption.CREATE);
