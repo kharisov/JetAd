@@ -164,7 +164,7 @@ public class UserBase {
                         throw new IOException(n);
                     }
                 }
-            }
+            } catch (NoSuchFileException n) {}
         }
         return feed.toArray(new Integer[feed.size()]);
     }
