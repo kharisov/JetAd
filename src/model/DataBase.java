@@ -40,8 +40,7 @@ public class DataBase implements AbstractModel {
     public void addPost(Post post) throws IOException {
         int ownerId = post.getOwnerId();
         int postId = postBase.addPost(post);
-        boolean result = userBase.addLink(ownerId, postId);
-
+        userBase.addLink(ownerId, postId);
     }
 
     @Override
@@ -56,34 +55,22 @@ public class DataBase implements AbstractModel {
     }
 
     @Override
-    public User login(String login, String password) {
-        User user;
-        try {
-            user = userBase.checkExistance(login, password);
-            return user;
-        }
-        catch (IOException err){
-            return null;
-        }
+    public User login(String login, String password) throws IOException {
+        return userBase.checkExistance(login, password);
     }
 
     @Override
     public User[] getSubscribers(int userID) {
-        return new User[0];
+        return null;
     }
 
     @Override
-    public User[] find(String login){
-        try {
-            return userBase.findShops(login);
-        }
-        catch (IOException err){
-            return null;
-        }
+    public User[] find(String login) throws IOException {
+        return userBase.findShops(login);
     }
 
     @Override
-    public boolean subscribe(int subscriber, int subscription) {
-        return userBase.subscribe(subscriber, subscription);
+    public void subscribe(int subscriber, int subscription) throws IOException {
+        userBase.subscribe(subscriber, subscription);
     }
 }
